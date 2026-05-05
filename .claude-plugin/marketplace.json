@@ -16,7 +16,7 @@
       "description": "Record polished demo videos of web apps from a natural-language flow description.",
       "strict": false,
       "skills": [
-        "./skills/slideshot"
+        "./"
       ]
     }
   ]
