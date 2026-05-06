@@ -12,7 +12,7 @@ Use this skill when the task is to record a demo video of a feature or specified
 
 Slideshot exposes the same workflow through two runtimes. Pick one at the start of the session and use it consistently — do not mix invocations between them in a single recommendation.
 
-- **MCP runtime** — if `slideshot.*` MCP tools are available in this session (`create_run`, `get_run`, `list_runs`, `cancel_run`, `submit_run_input`, `list_run_artifacts`, `list_credentials`, `create_credential`, `update_credential`, `set_default_credential`, `delete_credential`, `submit_feedback`), use them. See [`references/mcp.md`](references/mcp.md) for tool argument shapes, OAuth handling, and credential examples.
+- **MCP runtime** — if `slideshot.*` MCP tools are available in this session (`create_run`, `get_run`, `list_runs`, `cancel_run`, `submit_run_input`, `list_run_artifacts`, `fetch_brand`, `list_credentials`, `create_credential`, `update_credential`, `set_default_credential`, `delete_credential`, `submit_feedback`), use them. See [`references/mcp.md`](references/mcp.md) for tool argument shapes, OAuth handling, and credential examples.
 - **CLI runtime** — otherwise, invoke the public [`slideshot-cli`](https://www.npmjs.com/package/slideshot-cli) npm package via `npx -y slideshot-cli ...`. See [`references/cli.md`](references/cli.md) for command syntax, API-key auth, and JSON option examples.
 
 If neither MCP tools nor a shell are available, tell the user the Slideshot connector is not connected and stop. Do not invent another execution path.
@@ -25,8 +25,10 @@ If neither MCP tools nor a shell are available, tell the user the Slideshot conn
    - Whether the app requires login.
    - The flow the user wants recorded, in enough detail to write a single coherent goal.
 3. **Creating a run is billable and produces a user-facing video.** Wrong assumptions waste both time and money. Before calling the create-run tool / command:
+   - Fetch brand information for the target URL up front when the runtime supports it (`fetch_brand` in MCP or `brand fetch` in the CLI). Use that output only to make your proposed customization options more relevant.
    - You **MUST** ask the user about any unspecified customization that could materially affect the recording, unless the user already provided it.
    - **Never invent values on the user's behalf.** If the user has no preference for an option, omit it instead of guessing.
+   - **Do not treat fetched brand information as confirmed user intent.** Present the relevant options and recommendations, then wait for the user to confirm before setting them on the run.
    - **Do not call create-run in the same turn as the user's initial request when any of the choices below are still unspecified.** Ask first, then call after the user responds.
    - For login-required runs, **do not omit `options.auth`**. Set it explicitly to `default` or to a specific saved credential after confirming the user's intent. Omitting `auth` for a login-required flow is a bug, not a default.
 

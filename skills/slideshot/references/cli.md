@@ -37,6 +37,14 @@ Notes:
 - `auth set-key` is the preferred local auth setup flow because it is simpler to guide reliably in chat once the user has an account and can generate a key in the web app.
 - Command auth resolution prefers `--api-key`, then `SLIDESHOT_API_KEY`, then a stored local API key, then a stored user session when the command supports it.
 
+## Brand information
+
+Before walking the user through visual customization choices, fetch brand information for the target URL so your proposed defaults are more relevant. Treat the output as suggestions only; the user still has to confirm.
+
+```bash
+npx -y slideshot-cli brand fetch https://app.example.com
+```
+
 ## Saved credentials
 
 Before creating a login-required run, list saved credentials and check for a matching hostname first.

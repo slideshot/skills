@@ -22,6 +22,7 @@ Use this escalation pattern. The MCP server's per-tool descriptions are authorit
 | Continue an OTP or magic-link flow | `submit_run_input` |
 | Cancel a queued or running run the user wants stopped | `cancel_run` |
 | Surface or fetch the output files for a finished run | `list_run_artifacts` |
+| Fetch likely brand assets for a target URL before proposing visual options | `fetch_brand` |
 | Check whether a saved login already exists for the target hostname | `list_credentials` |
 | Add a saved login from chat (only when the user explicitly asks) | `create_credential` |
 | Update or correct an existing saved credential | `update_credential` |
